@@ -1,3 +1,3 @@
-print('Git test')
-print('it\'s the 2nd time to add it')
-print('2th : hahahahahahahah')
+print('Git te')
+print('it\'s the 2nd t to add it')
+print('2th : hahahahahahah')
