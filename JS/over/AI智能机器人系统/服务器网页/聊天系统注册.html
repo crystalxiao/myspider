@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-cn">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+  	body{text-align:center}
+	#rules:visited{color:blue}
+	button{
+		margin-left:3px;
+	}
+	td{
+		border:1px solid pink;
+		width:132px;
+		background:pink;
+		border-radius:10px;
+	}
+	.number,.number1{
+		border:1px solid pink;
+		width:125px;
+		height:41px;
+		outline:none;
+		background:pink;
+		border-radius:10px;
+	}
+	#phonecode,#phonecode1{
+		position:fixed;
+		left:750px;
+		top:270px;
+	}
+  </style>
+ </head>
+ <body style="background:gray" onkeydown="keylogin();">
+ <div style="height:300px"></div>
+ <div align="center"><div style="background:lightblue;width:275px">
+ USER:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ <input  placeholder="请输入10位以内的纯数字" maxlength="10" style="width:170px" title="仅支持数字"
+  name="user" id="user" 
+  onkeyup="document.getElementById('user1').value=this.value"
+  oninput="this.value=this.value.replace(/\D/g,'')">
+ <br><br>
+ PASSWORD:
+ <input  placeholder="请用数字英文组成密码" maxlength="18" style="width:170px" title="请注意大小写"
+ type="password" name="password" id="password" onkeyup="document.getElementById('password1').value=this.value"><br><br>
+ <input type="checkbox" name="login" value="0" id="rememberUser"><label for="rememberUser">显示密码</label>&nbsp&nbsp&nbsp&nbsp
+ <input type="checkbox" name="login" value="1" id="agreeRule"><label for="agreeRule">同意<a href="https://www.baidu.com/duty/" target="_blank" id="rules">《用户条例》</a></label><br><br>
+<a id="a1" href="../聊天系统登录.html"><button>返回登录</button></a>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button id="login" onclick="userEX()">确认注册</button>
+<script>
+ function keylogin(){
+ if(event.keyCode==13)
+ document.getElementById("login").click();
+ }
+</script>
+<script>
+function userEX()
+{
+var user=document.getElementById("user").value;
+var password=document.getElementById("password").value;
+var a1=document.getElementById("a1");
+var di2=document.getElementsByName("login");
+var pc=document.getElementById("phonecode");
+		console.log(di2);
+		console.log(di2[1].checked);
+if(user=="")
+	{
+	    alert("请输入账号")
+	}
+else if(password=="")
+	{
+	    alert("请输入密码")
+	}
+else if (di2[1].checked==false)
+    {
+		console.log(111);
+		alert("请阅读并同意《用户条例》");	
+	}
+else if(user.length<9)//(实际情况未连接数据库，后期改进)
+	{
+		alert("您的账号过短，请返回重新输入")
+	}
+else if(password.length<6)
+	{
+		alert("您的密码过短，好像不是很安全哟")
+	}
+else if(user=="1111111111"||user.length==9)
+	{
+		a1ert("该账号已有人注册")
+	}
+else{	
+		pc.style.display="block";
+	}	
+}
+</script>
+</div></div>
+<div style="height:300px;width:402px;background:rgba(100,100,150,0.7);display:none" id="phonecode">
+	&nbsp<input placeholder="请输入手机号(使用安全键盘保护隐私不被泄露~)" style="width:396px;height:33px" id="phonenumber" maxlength="11" oninput="this.value=this.value.replace(/\D/g,'')"><br><br>
+	<table style="text-align:center;width:402px;height:200px">
+		<tr>
+			<td><input type="button" class="number" value="1"></td>
+			<td><input type="button" class="number" value="2"></td>
+			<td><input type="button" class="number" value="3"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number" value="4"></td>
+			<td><input type="button" class="number" value="5"></td>
+			<td><input type="button" class="number" value="6"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number" value="7"></td>
+			<td><input type="button" class="number" value="8"></td>
+			<td><input type="button" class="number" value="9"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number" value="删除"></td>
+			<td><input type="button" class="number" value="0"></td>
+			<td><input type="button" class="number" value="确认"></td>
+		</tr>
+	</table>
+	<span style="font-size:2px">安全键盘由智障网&copy提供</span>
+</div>
+	<script>
+	var number = document.getElementsByClassName("number");
+	var pn = document.getElementById("phonenumber");
+	var phone="";
+	var pc=document.getElementById("phonecode");
+	var pc1=document.getElementById("phonecode1");
+	for(var i=0;i<9;i++){(function(i){
+		number[i].onclick=function(){
+			if (pn.value.length<11)
+			{
+			phone=number[i].value;
+			pn.value=pn.value+phone;
+			console.log(i);
+			}
+			else{alert("手机号码不可大于十一位")}
+		}
+	})(i)}
+	number[9].onclick=function(){pn.value = pn.value.substr(0, pn.value.length - 1);}
+	number[10].onclick=function(){pn.value=pn.value+"0"}
+	var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+	number[11].onclick=function(){
+		if(pn.value.length!=11||!myreg.test(pn.value))
+			{alert("请输入正确的手机号码(暂不支持港澳台与国外手机号)")}
+		else{alert("发送成功，请注意查收");
+			 pc.style.display="none";
+			 pc1.style.display="block";
+		}
+	}
+</script>
+<div style="display:none;height:300px;width:402px;background:rgba(100,100,150,0.7)" id="phonecode1">
+	&nbsp<input placeholder="请输入验证码(使用安全键盘保护隐私不被泄露~)" style="width:396px;height:33px" id="phonenumber1" maxlength="6" oninput="this.value=this.value.replace(/\D/g,'')"><br><br>
+	<table style="text-align:center;width:402px;height:200px">
+		<tr>
+			<td><input type="button" class="number1" value="1"></td>
+			<td><input type="button" class="number1" value="2"></td>
+			<td><input type="button" class="number1" value="3"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number1" value="4"></td>
+			<td><input type="button" class="number1" value="5"></td>
+			<td><input type="button" class="number1" value="6"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number1" value="7"></td>
+			<td><input type="button" class="number1" value="8"></td>
+			<td><input type="button" class="number1" value="9"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number1" value="删除"></td>
+			<td><input type="button" class="number1" value="0"></td>
+			<td><input type="button" class="number1" value="确认"></td>
+		</tr>
+	</table>
+	<span style="font-size:2px">安全键盘由智障网&copy提供</span>
+</div>
+<script>
+	var number1 = document.getElementsByClassName("number1");
+	var pn1 = document.getElementById("phonenumber1");
+	var phone1="";
+	var pc1=document.getElementById("phonecode1");
+	for(var i=0;i<9;i++){(function(i){
+		number1[i].onclick=function(){
+			if (pn1.value.length<6)
+			{
+			phone1=number1[i].value;
+			pn1.value=pn1.value+phone1;
+			console.log(i);
+			}
+			else{alert("验证码位数过多")}
+		}
+	})(i)}
+	number1[9].onclick=function(){pn1.value = pn1.value.substr(0, pn1.value.length - 1);}
+	number1[10].onclick=function(){pn1.value=pn1.value+"0"}
+	number1[11].onclick=function(){
+		if(pn1.value.length!=6)
+			{alert("验证失败，请输入正确的验证码")}
+		else{alert("验证成功，请跳转到登录页面");
+			 pc1.style.display="none";
+			 alert("正在加载数据，请稍候...");
+			 setTimeout(function(){window.location.href="../聊天系统登录.html";},2000)
+		}
+	}
+</script>
+<script>
+	var di2=document.getElementsByName("login");
+	di2[0].onclick=function(){
+	if (di2[0].checked)
+	{
+		document.getElementById("password").type="text";
+	}
+	else{document.getElementById("password").type="password";}}
+</script>
+ </body>
+</html>

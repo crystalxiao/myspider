@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-cn">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>智能AI提问版2.0.1</title>
+  <style>
+  	body{
+		text-align:center;
+	}
+	input{
+		height:30px;
+		width:500px;
+		border:1px solid rgba(5,39,175,0.5);
+	}
+	#wen{
+		height:34px;
+		width:80px;
+		background:rgba(5,39,175,0.5);
+		border:rgba(5,39,175,0.5);
+		font-size:18px;
+		color:red;
+		font-weight:4px;
+		position:relative;
+		top:2px;
+	}
+	#win{
+            width:580px;
+            height:420px;
+            border:1px solid #666;
+            background:#fff;
+            margin:10px auto 0;
+            overflow:auto;/* 增加滚动条 */
+	}
+	p{
+		background:pink;
+		height:30px;
+		width:250px;
+		border:1px solid rgba(5,39,175,0.5);
+		font-size:15px;
+		color:black;
+		font-weight:3px;
+	}
+	#me{
+		position:relative;
+		right:30px;
+		border-radius:15px;
+		display:none;
+	}
+	#cp{
+		position:relative;
+		left:30px;
+		border-radius:15px;
+		display:none;
+	}
+	.btalk{
+        margin:10px;
+		text-align:left;
+    }
+    .btalk span{
+        display:inline-block;
+        background:#0181cc;
+        border-radius:10px;
+        color:#fff;
+        padding:5px 10px;
+    }
+    .atalk{
+        margin:10px;
+        text-align:right;
+    }
+	.atalk span{
+        display:inline-block;
+        background:#ef8201;
+        border-radius:10px;
+        color:#fff;
+        padding:5px 10px;
+    }
+	#menu{
+		width:100px;
+		position:absolute;
+		display:none;
+	}
+	#menu1{
+		width:100px;
+		position:absolute;
+		display:none;
+	}
+	.movemenu{
+		width:100px;
+		height:40px;
+		line-height:35px;
+		border:2px solid pink;
+		text-align:center;
+		background:pink;
+		font-family:宋体;
+		font-size:15px;
+		display:inline-block;
+		position:relative;
+	}
+  </style>
+ </head>
+ <body onkeydown="keylogin();">
+  <script>
+	function mf() {
+	var win = document.getElementById("win");
+    var question = document.getElementById("question").value;
+	var atalk = document.getElementsByClassName("atalk");
+	var btalk = document.getElementsByClassName("btalk");
+    var txt = question.replace(/我/g,"me");
+	var txt1 = txt.replace(/你/g,"我");
+	var txt2 = txt1.replace(/吗？/g,"~");
+	var txt3 = txt2.replace(/me/g,"你");
+	var str = "";
+                if(question == ""){
+	                 // 消息为空时弹窗
+                    alert("提问不能为空");
+                    return;
+				}
+                else{
+                    str = "<div onclick=\"menus()\" class='atalk talk'><span>笨笨说 : " + question +"</span></div>";
+                    setTimeout(function(){
+						str = "<div onclick=\"menus()\" class='btalk talk'><span>机器人说 : " + txt3 +"</span></div>" ;
+						win.innerHTML = win.innerHTML + str;
+						win.scrollTop=win.scrollHeight;//滚动条自动到达底部
+					},1000);//1秒后机器人回复
+					win.innerHTML = win.innerHTML + str;
+					win.scrollTop=win.scrollHeight;
+					document.getElementById("question").value = "";//清空对话框
+				}
+            }
+  </script>
+ <script>
+	function keylogin(){
+		if(event.keyCode==13)
+		document.getElementById("wen").click();
+	}
+	function bottom(){
+		var win = document.getElementById("win");
+		win.scrollTop=win.scrollHeight;
+	}
+	function menus(){
+		var menu = document.getElementById("menu");
+		var menu1 = document.getElementById("menu1");
+		var aDiv = document.getElementsByClassName("atalk");
+		var bDiv = document.getElementsByClassName("btalk");
+		var copy = document.getElementById("copy");
+		var trans = document.getElementById("trans");
+		var deletes = document.getElementById("deletes");
+		var cancel = document.getElementById("cancel");
+		for (var i = 0; i < aDiv.length; i++) {
+        (function(i) {
+			aDiv[i].onclick = function(){
+				menu1.style.display='none';
+				menu.style.display='block';
+				//复制
+				copy.onclick = function(){
+					var text = aDiv[i];
+					menu.style.display="none";
+					if (document.body.createTextRange) {
+						var range = document.body.createTextRange();
+						range.moveToElementText(text);
+						range.select();
+					} 
+					else if (window.getSelection) {
+						var selection = window.getSelection();
+						var range = document.createRange();
+						range.selectNodeContents(text);
+						selection.removeAllRanges();
+						selection.addRange(range);
+					}
+					document.execCommand('Copy');
+					alert("复制成功~");
+				}
+				//撤回
+				trans.onclick = function(){
+					aDiv[i].innerHTML='消息已经撤回';
+					menu.style.display="none";
+					alert("撤回成功~");
+				}
+				//删除
+				deletes.onclick = function(){
+					aDiv[i].style.display="none";
+					menu.style.display="none";
+				}
+				//取消
+				cancel.onclick = function(){
+					menu.style.display="none";
+				}
+			}
+        })(i)
+		}
+		for (var i = 0; i < bDiv.length; i++) {
+			(function(i) {
+				bDiv[i].onclick = function(){
+					menu.style.display='none';
+					menu1.style.display='block';
+					//复制
+					copy1.onclick = function(){
+						var text = bDiv[i];
+						document.getElementById("menu1").style.display="none";
+						if (document.body.createTextRange) {
+							var range = document.body.createTextRange();
+							range.moveToElementText(text);
+							range.select();
+						} 
+						else if (window.getSelection) {
+							var selection = window.getSelection();
+							var range = document.createRange();
+							range.selectNodeContents(text);
+							selection.removeAllRanges();
+							selection.addRange(range);
+						}
+						document.execCommand('Copy');
+						alert("复制成功~");
+					}
+					//翻译
+					trans1.onclick = function(){
+						menu1.style.display="none";
+						alert("翻译功能正在研发中，请等待...\nThe translation function is being developed, please wait...");
+					}
+					//删除
+					deletes1.onclick = function(){
+						bDiv[i].style.display="none";
+						menu1.style.display="none";
+					}
+					//取消
+					cancel1.onclick = function(){
+						menu1.style.display="none";
+					}
+				}
+			})(i)
+		}
+	}
+	
+ </script>
+  <input id="question" placeholder="请输入你的问题" onMouseup="bottom()"><input type="button" onclick="mf()" id="wen" value="提问">
+  <br><br>
+  <input id="answer" style="display:none">
+  <br><br>
+  <div id="win">
+  <div class="btalk talk" id="jiqiren" onClick="menus()"><span>机器人说：有什么想问的都可以问我哟~（问题请以“吗？”做结尾，不然我要一通瞎答）</span></div>
+  <div id="menu">
+  	<button class="movemenu" id='copy' onClick="copy()">复制</button>
+	<button class="movemenu" id='trans' onClick="trans()">撤回</button>
+	<button class="movemenu" id='deletes' onClick="deletes()">删除</button>
+	<button class="movemenu" id='cancel' onClick="cancel()">取消</button>
+  </div>
+  <div id="menu1">
+  	<button class="movemenu" id='copy1' onClick="copy()">复制</button>
+	<button class="movemenu" id='trans1' onClick="trans()">翻译</button>
+	<button class="movemenu" id='deletes1' onClick="deletes()">删除</button>
+	<button class="movemenu" id='cancel1' onClick="cancel()">取消</button>
+  </div>
+ </body>
+</html>

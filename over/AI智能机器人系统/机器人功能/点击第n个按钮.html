@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>判断点击的是哪个div</title>
+    <style>
+    .node {
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        background: #ed145b;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <div class="node">有本事你点我啊</div>
+    <div class="node">有本事你点我啊</div>
+    <div class="node">有本事你点我啊</div>
+    <div class="node">有本事你点我啊</div>
+    <div class="node">有本事你点我啊</div>
+    <script>
+    var oDiv = document.getElementsByClassName("node");
+    for (var i = 0; i < oDiv.length; i++) {
+        (function(i) {
+            oDiv[i].onclick = function() {
+                alert('你点击的是:第'+(i+1)+'个按钮');
+            }
+        })(i)
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+python math库
+
+输入的数据:初始拉弹弓长度L
+	   初始角度jiao
+
+计算:   初始速度v=常量i×L
+	v水平=v*sin jiao
+	v竖直=v*cos jiao
+	t=2v竖直/g
+	s水平=v水平*t
+	s竖直=v竖直t/2
+	(0,0)(s水平,0)(s水平/2,s竖直)
+
+
+
+
+	s1=v1*v1/g
+	s2=v2*

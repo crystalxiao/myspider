@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+  	body{text-align:center}
+	td{
+		border:1px solid pink;
+		width:132px;
+		background:pink;
+		border-radius:10px;
+	}
+	.number1{
+		border:1px solid pink;
+		width:125px;
+		height:41px;
+		outline:none;
+		background:pink;
+		border-radius:10px;
+	}
+	#phonecode1{
+		position:fixed;
+		left:750px;
+		top:270px;
+	}
+  </style>
+ </head>
+ <body>
+  <div style="height:300px;width:402px;background:rgba(100,100,150,0.7)" id="phonecode1">
+	&nbsp<input placeholder="请输入手机号(使用安全键盘保护隐私不被泄露~)" style="width:396px;height:33px" id="phonenumber1" maxlength="6" oninput="this.value=this.value.replace(/\D/g,'')"><br><br>
+	<table style="text-align:center;width:402px;height:200px">
+		<tr>
+			<td><input type="button" class="number1" value="1"></td>
+			<td><input type="button" class="number1" value="2"></td>
+			<td><input type="button" class="number1" value="3"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number1" value="4"></td>
+			<td><input type="button" class="number1" value="5"></td>
+			<td><input type="button" class="number1" value="6"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number1" value="7"></td>
+			<td><input type="button" class="number1" value="8"></td>
+			<td><input type="button" class="number1" value="9"></td>
+		</tr>
+		<tr>
+			<td><input type="button" class="number1" value="删除"></td>
+			<td><input type="button" class="number1" value="0"></td>
+			<td><input type="button" class="number1" value="确认"></td>
+		</tr>
+	</table>
+	<span style="font-size:2px">安全键盘由智障网&copy提供</span>
+</div>
+<script>
+	var number1 = document.getElementsByClassName("number1");
+	var pn1 = document.getElementById("phonenumber1");
+	var phone1="";
+	var pc1=document.getElementById("phonecode1");
+	for(var i=0;i<9;i++){(function(i){
+		number1[i].onclick=function(){
+			if (pn1.value.length<6)
+			{
+			phone1=number1[i].value;
+			pn1.value=pn1.value+phone1;
+			console.log(i);
+			}
+			else{alert("验证码位数过多")}
+		}
+	})(i)}
+	number1[9].onclick=function(){pn1.value = pn1.value.substr(0, pn1.value.length - 1);}
+	number1[10].onclick=function(){pn1.value=pn1.value+"0"}
+	number1[11].onclick=function(){
+		if(pn1.value.length!=6)
+			{alert("请输入正确的验证码")}
+		else{alert("验证，请跳转到登录页面");
+			 pc1.style.display="none";
+		}
+	}
+</script>
+ </body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html lang="zh-cn">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Login</title>
+ </head>
+ <style>
+	#rules:visited{
+		color:blue;
+	}
+ </style>
+ <script>
+ function keylogin(){
+ if(event.keyCode==13)
+ document.getElementById("login").click();
+ }
+ </script>
+ <body style="background:gray" onkeydown="keylogin();">
+ <div style="height:300px"></div>
+ <div align="center"><div style="background:lightblue;width:275px">
+ USER:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ <input  placeholder="请输入QQ号或智障网账号" maxlength="10" style="width:170px" title="仅支持数字"
+  name="user" id="user" 
+  onkeyup="document.getElementById('user1').value=this.value"
+  oninput="this.value=this.value.replace(/\D/g,'')">
+ <br><br>
+ PASSWORD:
+ <input  placeholder="请输入密码" maxlength="18" style="width:170px" title="请注意大小写"
+ type="password" name="password" id="password" onkeyup="document.getElementById('password1').value=this.value"><br><br>
+ <input type="checkbox" name="login" value="0" id="rememberUser"><label for="rememberUser">显示密码</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ <input type="checkbox" name="login" value="1" id="agreeRule"><label for="agreeRule">同意<a href="https://www.baidu.com/duty/" target="_blank" id="rules">《用户条例》</a></label><br><br>
+ <script>
+function userEX()
+{
+var user=document.getElementById("user").value;//获得用户输入的账号值
+var password=document.getElementById("password").value;//获得密码值
+var a1=document.getElementById("a1");//标签值
+var di2=document.getElementsByName("login");
+		console.log(di2);
+		console.log(di2[1].checked);
+if(user=="")
+	{
+	    alert("请输入账号")
+	}
+else if(password=="")
+	{
+	    alert("请输入密码")
+	}
+else if (di2[1].checked==false)
+    {
+		console.log(111);
+		alert("请阅读并同意《用户条例》");	
+	}
+else if(user.length<9)//(实际情况未连接数据库，后期改进)
+	{
+		alert("用户名错误")
+	}
+else if(password.length<6)
+	{
+		alert("密码错误(请注意大小写)")
+	}
+else if(user=="1111111111")
+	{
+		a1.href='#dibu';
+	}
+else{
+		a1.href='服务器网页/智能机器人2.0.6.html';
+	}	
+}
+</script>
+<script>
+	var di2=document.getElementsByName("login");
+	di2[0].onclick=function(){
+	if (di2[0].checked)
+	{
+		document.getElementById("password").type="text";
+	}
+	else{document.getElementById("password").type="password";}}
+</script>
+&nbsp&nbsp&nbsp&nbsp
+<a id="a1"><button id="login" onclick="userEX()">登录</button></a>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<button onclick='window.location.href="服务器网页/聊天系统注册.html";'>注册</button><!-- 新网页后期改进 -->
+</div></div>
+<p style="height:3000px"></p>
+ <div id="dibu" align="center" style="font-size:50px;color:red">
+ 这是一个彩蛋<br>
+ 恭喜你被盗号了<br>
+ 你的账号是<output name="user1" id="user1"></output><br>
+ 你的密码是<output name="password1" id="password1"></output>
+ <div>
+ </body>
+</html>

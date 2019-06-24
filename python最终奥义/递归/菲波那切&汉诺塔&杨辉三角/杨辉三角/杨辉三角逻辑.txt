@@ -1,0 +1,9 @@
+	给定一个需要打印的行数i
+	list=[[0 for i in range(n)]for i in range (n)]
+	for m in range(n):#它的行数
+	list[m]
+
+ax2+bx+c
+
+2ax+1
+
