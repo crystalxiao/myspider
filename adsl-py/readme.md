@@ -28,3 +28,5 @@ ep:
     前需要先到 http://www.138ip.com/ 得到返回网络ip的临时网页url
     并在初始化时添加，或在settings中设置保存，也支持ip138提供的
     接口服务，更改token即可
+    
+本项目的更新请见: https://github.com/zongrongjin/myspider/tree/master/adsl-py
