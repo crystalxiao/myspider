@@ -4,7 +4,7 @@ import logging
 import re
 import sys
 import requests
-import settings
+from adsl_py import settings
 
 class ADSL_Tool(object):
     def __init__(self, *, netName='adslproxy', user=None, password=None, url=None, token=None):
