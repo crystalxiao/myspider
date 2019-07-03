@@ -35,8 +35,8 @@ server使用方法:
 
     from adsl_py import server
 
-    #若settings中已设置IP138token或url，则不用填写ip
-    ser = server.ADSL_Server(ip='xxxxxx')
+    #需在settings中设置IP138token或url
+    ser = server.ADSL_Server()
     ser.start()
 
 server另一种用法,继承ADSL_Server后重写getIP方法，注意返回值必须为本机网络ip的字符串:

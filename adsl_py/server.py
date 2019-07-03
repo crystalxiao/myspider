@@ -1,4 +1,5 @@
 import socket
+import re
 import logging
 import requests
 from adsl_py import settings
@@ -8,17 +9,16 @@ logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(leve
                     filename=settings.LOG_FILE_NAME)
 
 class ADSL_Server(object):
-    def __init__(self, host='localhost', port=9419, ip=None, timeout=30):
+    def __init__(self, host='localhost', port=9419, timeout=30):
         """
         自动向客户机发送ip地址
         ip需用以下几种方式之一获得:
-        1.手动填写
-        2.重写getIP方法
-        3.settings中设置ip138的url或token
+        1.重写getIP方法
+        2.settings中设置ip138的url或token
         """
         self.host = host
         self.port = port
-        self.ip = ip or self.getIP()
+        self.ip = self.getIP()
 
     def start(self, backlog=5, timeout=3000):
         """
@@ -36,7 +36,7 @@ class ADSL_Server(object):
                 while True:
                     data = connect.recv(1024)
                     if data.decode() == 'GET_IP':
-                        connect.send(self.ip.encode('utf-8'))
+                        connect.send(self.getIP().encode('utf-8'))
                         logging.debug('{}已获取ip {}'.format(address, self.ip  ))
                     elif data.decode() == 'EXIT':
                         connect.close()
@@ -49,7 +49,7 @@ class ADSL_Server(object):
             response = requests.get('http://api.ip138.com/query/?token=%s' % (settings.IP138_TOKEN))
             if response.status_code == 200:
                 self.ip = re.findall(r'"ip":"(.*?)"', response.text)[0]
-            elif self.url == None:
+            elif settings.IP138_URL == None:
                 raise KeyError('token值有误或可用次数不足')
         elif settings.IP138_URL != None:
             response = requests.get(settings.IP138_URL)
@@ -58,5 +58,5 @@ class ADSL_Server(object):
             else:
                 self.ip = re.findall(r'IP地址是：\[(.*?)\]', response.text)[0]
         else:
-            raise KeyError('请输入ip, 或在settings中设置token或url')
+            raise KeyError('请在settings中设置token或url')
         return self.ip
