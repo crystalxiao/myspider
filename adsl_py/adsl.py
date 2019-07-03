@@ -6,8 +6,12 @@ import sys
 import requests
 from adsl_py import settings
 
+logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
+                    level=eval('logging.' + settings.LOG_LEVEL),
+                    filename=settings.LOG_FILE_NAME)
+
 class ADSL_Tool(object):
-    def __init__(self, *, netName='adslproxy', user=None, password=None, url=None, token=None):
+    def __init__(self, netName='adslproxy', user=None, password=None, url=None, token=None):
         """
         user: windows使用者的adsl用户账号
         password: windows使用者的adsl密码

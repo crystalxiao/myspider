@@ -1,4 +1,4 @@
-使用方法：
+adsl使用方法：
     将此包放于python的包目录中
     from adsl-py.adsl import ADSL_Tool  
     实例化ADSL_Tool后调用相应方法进行操作
@@ -16,6 +16,7 @@
     sys             目前主机操作系统
 
 ep:
+    from adsl-py.adsl import ADSL_Tool 
     net = ADSL_Tool(url='xxx', token='xxx')
     net.connect() #adsl拨号
     print(net.ip) #打印当前网络ip
@@ -29,4 +30,45 @@ ep:
     并在初始化时添加，或在settings中设置保存，也支持ip138提供的
     接口服务，更改token即可
     
-本项目的更新请见: https://github.com/zongrongjin/myspider/tree/master/adsl-py
+
+server使用方法:
+
+    from adsl_py import server
+
+    #若settings中已设置IP138token或url，则不用填写ip
+    ser = server.ADSL_Server(ip='xxxxxx')
+    ser.start()
+
+server另一种用法,继承ADSL_Server后重写getIP方法，注意返回值必须为本机网络ip的字符串:
+
+    from adsl_py import server
+
+    class MyServer(server.ADSL_Server):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+        def getIP():
+            xxxxxx
+            return 本机ip
+
+    ser = MyServer()
+    ser.start()
+
+
+client的使用方法:
+
+    方法有三个：
+        connect()   建立连接
+        getIP()     获取主机当前网络ip
+        close()     关闭连接
+
+    from adsl_py import client
+
+    #host为服务机的本地ip地址，若配置了settings的server_host则不用填写
+    cli = client.ADSL_Client(host='xxxxxx')
+    cli.connect()
+    print(cli.getIP())
+    cli.close()
+
+
+本项目长期维护与github: https://github.com/zongrongjin/myspider/tree/master/adsl-py

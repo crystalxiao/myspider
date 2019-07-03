@@ -9,3 +9,9 @@ ADSL_PASSWORD = None
 IP138_URL = None
 IP138_TOKEN = None
 
+#拨号主机的ip地址
+SERVER_HOST = None
+
+#日志的输出控制
+LOG_FILE_NAME = 'log.log'
+LOG_LEVEL = 'DEBUG'
