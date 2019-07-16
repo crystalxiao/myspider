@@ -1,12 +1,12 @@
 {
-  "username":"1796932792@qq.com",
-  "password":"zong17969",
+  "username":"123456@qq.com",
+  "password":"123456789",
   "from_station":"GZQ",
   "from_station_text":"广州",
   "to_station":"WCN",
   "to_station_text":"武昌",
   "travel_date":"'2019-01-27'",
-  "passenger_list":["宗荣进"],
+  "passenger_list":["张三"],
   "train_code":"K4104",
   "train_seat":["硬座"]
 }
