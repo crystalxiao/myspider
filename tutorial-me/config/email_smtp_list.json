@@ -1,0 +1,18 @@
+{
+    "qq":"25",
+    "188":"25",
+    "163":"25",
+    "126":"25",
+    "netease":"25",
+    "yeah":"25,smtp.yeah.net",
+    "sina":"25,smtp.sina.com.cn",
+    "aliyun":"25",
+    "google":"587",
+    "top":"25",
+    "yahoo":"25,smtp.mail.yahoo.com.cn",
+    "foxmail":"25",
+    "live":"587",
+    "139":"25",
+    "china":"25",
+    "outlook":"587,smtp.office365.com"
+}

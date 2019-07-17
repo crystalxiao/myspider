@@ -1,6 +1,3 @@
-#! /usr/bin/env
-# -*- coding:utf-8 -*-
-
 import requests
 import json
 import time
@@ -13,8 +10,12 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 import asyncio
 import re
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
 
 code_login = True
+email_tip = False
 
 time_out = 60
 poll_frequency = 0.1
@@ -45,6 +46,30 @@ seat_type_index = {
     '硬座': '1',
     '无座': '10'
 }
+
+def send_email():
+    with open('./config/email_config.json', 'r', encoding='utf-8') as f:
+        config = json.loads(f.read())
+    with open('./config/email_smtp_list.json', 'r', encoding='utf-8') as f:
+        elist = json.loads(f.read())
+    
+    mail_from = re.findall(r'@.*?\.', config['发送邮箱地址'])[0]
+    if mail_from not in elist:
+        print_t('暂不支持使用%s邮箱发送邮件' % (mail_from))
+        return False
+    host = elist[mail_from].split(',')[1] if ',' in elist[mail_from] else 'smtp.%s.com'%(mail_from)
+    port = elist[mail_from].split(',')[0] if ',' in elist[mail_from] else elist[mail_from]
+    try:
+        smtp = smtplib.SMTP()
+        smtp.connect(host, port)
+        smtp.login(config['发送邮箱地址'], config['发送邮箱密码'])
+        msg = MIMEText(config['发送信息'], 'plain', 'utf-8')
+        msg['From'] = config['发送邮箱地址']
+        msg['To'] = config['接收邮箱地址']
+        smtp.sendmail(config['发送邮箱地址'], config['接收邮箱地址'], msg.as_string())
+        smtp.quit()
+    except:
+        print_t('发送邮件失败')
 
 def print_t(*content):
     print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time())),*content)
@@ -334,6 +359,9 @@ if __name__ == '__main__':
 
     print_t('自动点击确认购买按钮')
     driver.find_element_by_id("qr_submit_id").click()
+
+    if email_tip:
+        send_email()
 
     input("完成购买！请在30分钟内登录账户，完成付款,点击Enter退出购票")
 
