@@ -7,7 +7,7 @@ import scrapy
 from scrapy_redis.spiders import RedisSpider
 from mafengwo.items import MafengwoItem
 
-class PathSpider(scrapy.RedisSpider):
+class PathSpider(RedisSpider):
     name = 'path'
     redis_key = 'pathspider:start_urls'
     '''
