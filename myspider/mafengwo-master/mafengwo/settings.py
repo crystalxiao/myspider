@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = False
 DUPEFILTER = 'scrapy_redis.dupefilter.RFPDupeFilter'
 SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
 SCHEDULER_PERSIST = True
-REDIS_URL = 'redis://127.0.0.1:6379'
+REDIS_URI = 'redis://127.0.0.1:6379'
 
 MONGO_HOST = '127.0.0.1'
 MONGO_PORT = '27017'
