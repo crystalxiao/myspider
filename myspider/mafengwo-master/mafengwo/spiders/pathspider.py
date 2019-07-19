@@ -4,9 +4,10 @@ import re
 import bs4
 import scrapy
 
+from scrapy_redis.spiders import RedisSpider
 from mafengwo.items import MafengwoItem
 
-class PathSpider(scrapy.Spider):
+class PathSpider(scrapy.RedisSpider):
     name = 'path'
     redis_key = 'pathspider:start_urls'
     '''
