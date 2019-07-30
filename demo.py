@@ -12,10 +12,6 @@ ADSL_NAME = '宽带连接'
 ADSL_USER = '9854645112'
 ADSL_PASSWORD = '369258'
 
-#ip138的查询ip的url及接口，优先调用接口
-IP138_URL = '200019.ip138.com'
-IP138_TOKEN = None
-
 #日志的输出控制
 LOG_FILE_NAME = 'log.log'
 LOG_LEVEL = 'DEBUG'
@@ -28,11 +24,8 @@ class ADSL_Tool(object):
     def __init__(self):
         self.sys = platform.system()
         self.name = ADSL_NAME
-        self.url = IP138_URL
-        self.token = IP138_TOKEN
         self.user = ADSL_USER
         self.password = ADSL_PASSWORD
-        self.ip = self.refreshIP()
         self.status = False
         if self.sys == 'Windows':
             self.connect_commands = 'rasdial %s %s %s' % (self.name, self.user, self.password)
@@ -63,9 +56,7 @@ class ADSL_Tool(object):
         """
         if not self.status:
             logging.debug(self.cmd(self.connect_commands))
-            self.ip = self.refreshIP()
             self.status = True
-            return self.ip
         else:
             raise Exception('当前处于已连接状态, 请断开后重连')
 
@@ -75,9 +66,7 @@ class ADSL_Tool(object):
         """
         if self.status:
             logging.debug(self.cmd(self.disconnect_commands))
-            self.ip = self.refreshIP()
             self.status = False
-            return 0
         else:
             raise Exception('当前已处于未连接状态')
 
@@ -92,25 +81,6 @@ class ADSL_Tool(object):
             raise Exception('当前处于未连接状态，不可重新拨号')
         return self.connect()
 
-    def refreshIP(self):
-        """
-        return : 当前网络的IP值, type: str
-        """
-        if self.token != None:
-            response = requests.get('http://api.ip138.com/query/?token=%s' % (self.token))
-            if response.status_code == 200:
-                self.ip = re.findall(r'"ip":"(.*?)"', response.text)[0]
-            elif self.url == None:
-                raise KeyError('token值有误或可用次数不足')
-        elif self.url != None:
-            response = requests.get(self.url)
-            if response.status_code != 200:
-                raise KeyError('url有误，请检查url是否过期')
-            else:
-                self.ip = re.findall(r'IP地址是：\[(.*?)\]', response.text)[0]
-        else:
-            raise KeyError('请输入token或url')
-        return self.ip
 
 mynet = ADSL_Tool()
 mynet.connect()
