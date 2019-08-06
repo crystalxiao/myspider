@@ -12,10 +12,13 @@ ADSL_NAME = '宽带连接'
 ADSL_USER = '9854645112'
 ADSL_PASSWORD = '369258'
 
+<<<<<<< HEAD
 #ip138的查询ip的url及接口，优先调用接口
 IP138_URL = '200019.ip138.com'
 IP138_TOKEN = None
 
+=======
+>>>>>>> 490728ef72e9a0c8484d515b67c7c1e19c41a1b2
 #日志的输出控制
 LOG_FILE_NAME = 'log.log'
 LOG_LEVEL = 'DEBUG'
@@ -28,11 +31,16 @@ class ADSL_Tool(object):
     def __init__(self):
         self.sys = platform.system()
         self.name = ADSL_NAME
+<<<<<<< HEAD
         self.url = IP138_URL
         self.token = IP138_TOKEN
         self.user = ADSL_USER
         self.password = ADSL_PASSWORD
         self.ip = self.refreshIP()
+=======
+        self.user = ADSL_USER
+        self.password = ADSL_PASSWORD
+>>>>>>> 490728ef72e9a0c8484d515b67c7c1e19c41a1b2
         self.status = False
         if self.sys == 'Windows':
             self.connect_commands = 'rasdial %s %s %s' % (self.name, self.user, self.password)
@@ -63,9 +71,13 @@ class ADSL_Tool(object):
         """
         if not self.status:
             logging.debug(self.cmd(self.connect_commands))
+<<<<<<< HEAD
             self.ip = self.refreshIP()
             self.status = True
             return self.ip
+=======
+            self.status = True
+>>>>>>> 490728ef72e9a0c8484d515b67c7c1e19c41a1b2
         else:
             raise Exception('当前处于已连接状态, 请断开后重连')
 
@@ -75,9 +87,13 @@ class ADSL_Tool(object):
         """
         if self.status:
             logging.debug(self.cmd(self.disconnect_commands))
+<<<<<<< HEAD
             self.ip = self.refreshIP()
             self.status = False
             return 0
+=======
+            self.status = False
+>>>>>>> 490728ef72e9a0c8484d515b67c7c1e19c41a1b2
         else:
             raise Exception('当前已处于未连接状态')
 
@@ -92,6 +108,7 @@ class ADSL_Tool(object):
             raise Exception('当前处于未连接状态，不可重新拨号')
         return self.connect()
 
+<<<<<<< HEAD
     def refreshIP(self):
         """
         return : 当前网络的IP值, type: str
@@ -111,6 +128,8 @@ class ADSL_Tool(object):
         else:
             raise KeyError('请输入token或url')
         return self.ip
+=======
+>>>>>>> 490728ef72e9a0c8484d515b67c7c1e19c41a1b2
 
 mynet = ADSL_Tool()
 mynet.connect()
@@ -179,6 +198,7 @@ def workOn():
             mynet.reconnect()
             #time.sleep(2)
             
+<<<<<<< HEAD
             logging.debug('正在爬取------page %s-------' % i) #打印当面爬取的页码
 
             getPage(url)
@@ -188,3 +208,14 @@ def workOn():
 
 
 workOn()
+=======
+            print('正在爬取------page %s-------' % i) #打印当面爬取的页码
+
+            getPage(url)
+        
+        print("爬取结束")
+  
+
+
+workOn()
+>>>>>>> 490728ef72e9a0c8484d515b67c7c1e19c41a1b2
