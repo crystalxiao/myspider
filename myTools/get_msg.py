@@ -53,10 +53,10 @@ class Yunduanxin(object):
                     self._useful_num[num] = 'https://www.pdflibr.com' + url
                     yield num
 
-    def get_my_msg(self, num):
+    def get_my_msg(self, num, re_code=False):
         url = self._useful_num[num]
-        response = requests.get(url, headers=self._headers).text
-        msg_code = re.findall(self._my_re, response)
+        response = requests.get(url, headers=get_ua()).text
+        msg_code = re.findall(re_code or self._my_re, response)
         if len(msg_code) != 0:
             print(num, '收到的的验证码为', msg_code)
             return msg_code
